@@ -1,2 +1,4 @@
-var asdf = 101010101;
+'use strict';
+
+var asdf = '1101';
 console.log(asdf);

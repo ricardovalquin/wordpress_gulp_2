@@ -10,7 +10,7 @@
  
 <body>
  
-<h1 class="hello">hello asdfasdfafrom gulp automation tool</h1>
+<h1 class="hello">hello from gulp automation tool</h1>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/custom.min.js"></script>
  
 </body>

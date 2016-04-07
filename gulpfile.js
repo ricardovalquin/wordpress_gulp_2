@@ -24,28 +24,29 @@
 
 // plugins
 var gulp = require('gulp');
-var	browserSync  = require('browser-sync'); // Asynchronous browser loading on .scss file changes
-var	reload       = browserSync.reload;
+var	browserSync = require('browser-sync'); // Asynchronous browser loading on .scss file changes
+var	reload = browserSync.reload;
 var	autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic
-var	minifycss    = require('gulp-uglifycss');
-var	filter       = require('gulp-filter');
-var	uglify       = require('gulp-uglify');
-var	imagemin     = require('gulp-imagemin');
-var	newer        = require('gulp-newer');
-var	rename       = require('gulp-rename');
-var	concat       = require('gulp-concat');
-var	notify       = require('gulp-notify');
-var	cmq          = require('gulp-combine-media-queries');
-var	runSequence  = require('gulp-run-sequence');
-var	sass         = require('gulp-sass');
-var	plugins      = require('gulp-load-plugins')({ camelize: true });
-var	ignore       = require('gulp-ignore'); // Helps with ignoring files and directories in our run tasks
-var	rimraf       = require('gulp-rimraf'); // Helps with removing files and directories in our run tasks
-var	zip          = require('gulp-zip'); // Using to zip up our packaged theme into a tasty zip file that can be installed in WordPress!
-var	plumber      = require('gulp-plumber'); // Helps prevent stream crashing on errors
-var	cache        = require('gulp-cache');
-var	sourcemaps   = require('gulp-sourcemaps');
+var	minifycss = require('gulp-uglifycss');
+var	filter = require('gulp-filter');
+var	uglify = require('gulp-uglify');
+var	imagemin = require('gulp-imagemin');
+var	newer = require('gulp-newer');
+var	rename = require('gulp-rename');
+var	concat = require('gulp-concat');
+var	notify = require('gulp-notify');
+var	cmq = require('gulp-combine-media-queries');
+var	runSequence = require('gulp-run-sequence');
+var	sass = require('gulp-sass');
+var	plugins = require('gulp-load-plugins')({ camelize: true });
+var	ignore = require('gulp-ignore'); // Helps with ignoring files and directories in our run tasks
+var	rimraf = require('gulp-rimraf'); // Helps with removing files and directories in our run tasks
+var	zip = require('gulp-zip'); // Using to zip up our packaged theme into a tasty zip file that can be installed in WordPress!
+var	plumber = require('gulp-plumber'); // Helps prevent stream crashing on errors
+var	cache = require('gulp-cache');
+var	sourcemaps = require('gulp-sourcemaps');
 var eslint = require('gulp-eslint');
+var babel = require('gulp-babel');
 
 // plumber variable for handled errors
 var plumberErrorHandler = {errorHandler: notify.onError({
@@ -104,6 +105,9 @@ gulp.task('vendorsJs', function(){
 
 gulp.task('scriptsJs', function(){
 	gulp.src('./assets/js/custom/*.js')
+		.pipe(plumber(plumberErrorHandler))
+		.pipe(sourcemaps.init())
+		.pipe(babel())
 		.pipe(concat('custom.js'))
 		.pipe(gulp.dest('./assets/js/'))
 		.pipe(rename({
@@ -111,6 +115,7 @@ gulp.task('scriptsJs', function(){
 			suffix: '.min'
 		}))
 		.pipe(uglify())
+		.pipe(sourcemaps.write('./assets/js'))
 		.pipe(gulp.dest('./assets/js/'))
 		.pipe(notify({ message: 'Custom scripts task complete', onLast: true }));
 
@@ -142,7 +147,7 @@ gulp.task('lint', function() {
 
 
 // BrowserSync Task
-gulp.task('serve', ['styles', 'vendorsJs', 'scriptsJs', 'images'], function(){
+gulp.task('serve', ['styles', 'vendorsJs', 'scriptsJs', 'images', 'lint'], function(){
 	var files = [
 		'**/*.php',
 		'**/*.{png, jpg, gif}'
