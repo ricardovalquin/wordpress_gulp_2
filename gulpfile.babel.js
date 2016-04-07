@@ -1,55 +1,31 @@
-// configuration
-// buildInclude = ['**/*.php',
-// 				'**/*.html',
-// 				'**/*.css',
-// 				'**/*.js',
-// 				'**/*.svg',
-// 				'**/*.ttf',
-// 				'**/*.otf',
-// 				'**/*.eot',
-// 				'**/*.woff',
-// 				'**/*.woff2',
-
-// 				// include specific files and folders
-// 				'screenshot.png',
-
-// 				// exclude files and folders
-// 				'!node_modules/**/*',
-// 				'!bower_components/**/*',
-// 				'!style.css.map',
-// 				'!assets/js/custom/*',
-// 				'!assets/css/patrials/*'
-// ];
-
-
 // plugins
-var gulp = require('gulp');
-var	browserSync = require('browser-sync'); // Asynchronous browser loading on .scss file changes
-var	reload = browserSync.reload;
-var	autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic
-var	minifycss = require('gulp-uglifycss');
-var	filter = require('gulp-filter');
-var	uglify = require('gulp-uglify');
-var	imagemin = require('gulp-imagemin');
-var	newer = require('gulp-newer');
-var	rename = require('gulp-rename');
-var	concat = require('gulp-concat');
-var	notify = require('gulp-notify');
-var	cmq = require('gulp-combine-media-queries');
-var	runSequence = require('gulp-run-sequence');
-var	sass = require('gulp-sass');
-var	plugins = require('gulp-load-plugins')({ camelize: true });
-var	ignore = require('gulp-ignore'); // Helps with ignoring files and directories in our run tasks
-var	rimraf = require('gulp-rimraf'); // Helps with removing files and directories in our run tasks
-var	zip = require('gulp-zip'); // Using to zip up our packaged theme into a tasty zip file that can be installed in WordPress!
-var	plumber = require('gulp-plumber'); // Helps prevent stream crashing on errors
-var	cache = require('gulp-cache');
-var	sourcemaps = require('gulp-sourcemaps');
-var eslint = require('gulp-eslint');
-var babel = require('gulp-babel');
+import gulp from 'gulp';
+import browserSync from 'browser-sync'; // Asynchronous browser loading on .scss file changes
+import autoprefixer from 'gulp-autoprefixer'; // Autoprefixing magic
+import minifycss from 'gulp-uglifycss';
+import filter from 'gulp-filter';
+import uglify from 'gulp-uglify';
+import imagemin from 'gulp-imagemin';
+import newer from 'gulp-newer';
+import rename from 'gulp-rename';
+import concat from 'gulp-concat';
+import notify from 'gulp-notify';
+import cmq from 'gulp-combine-media-queries';
+import runSequence from 'gulp-run-sequence';
+import sass from 'gulp-sass';
+import plugins from 'gulp-load-plugins';
+import ignore from 'gulp-ignore'; // Helps with ignoring files and directories in our run tasks
+import rimraf from 'gulp-rimraf'; // Helps with removing files and directories in our run tasks
+import zip from 'gulp-zip'; // Using to zip up our packaged theme into a tasty zip file that can be installed in WordPress!
+import plumber from 'gulp-plumber'; // Helps prevent stream crashing on errors
+import cache from 'gulp-cache';
+import sourcemaps from 'gulp-sourcemaps';
+import eslint from 'gulp-eslint';
+import babel from 'gulp-babel';
+const reload = browserSync.reload;
 
 // plumber variable for handled errors
-var plumberErrorHandler = {errorHandler: notify.onError({
+let plumberErrorHandler = {errorHandler: notify.onError({
 		title: 'Gulp',
 		message: 'Error <%= error.message %>'
 	})
@@ -58,7 +34,7 @@ var plumberErrorHandler = {errorHandler: notify.onError({
 
 // Styles task
 
-gulp.task('styles', function(){
+gulp.task('styles', () => {
 	gulp.src('./assets/css/*.scss')
 		.pipe(plumber(plumberErrorHandler))
 		.pipe(sourcemaps.init())
@@ -87,7 +63,7 @@ gulp.task('styles', function(){
 
 // Vendor scripts
 
-gulp.task('vendorsJs', function(){
+gulp.task('vendorsJs', () => {
 	gulp.src(['./assets/js/vendor/*.js', './bower_components/**/*.js'])
 		.pipe(concat('vendors.js'))
 		.pipe(gulp.dest('./assets/js/'))
@@ -103,7 +79,7 @@ gulp.task('vendorsJs', function(){
 
 // Custom scripts
 
-gulp.task('scriptsJs', function(){
+gulp.task('scriptsJs', () => {
 	gulp.src('./assets/js/custom/*.js')
 		.pipe(plumber(plumberErrorHandler))
 		.pipe(sourcemaps.init())
@@ -123,7 +99,7 @@ gulp.task('scriptsJs', function(){
 
 // Image optimization
 
-gulp.task('images', function(){
+gulp.task('images', () => {
 	gulp.src(['./assets/img/raw/**/*.{png,jpg,gif}'])
 		.pipe(newer('./assets/img/'))
 		.pipe(rimraf({force: true}))
@@ -138,7 +114,7 @@ gulp.task('images', function(){
 
 
 // Lint for js files
-gulp.task('lint', function() {
+gulp.task('lint', () =>  {
 	gulp.src(['./assets/js/**/*.js','!node_modules/**', '!bower_components/**'])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -147,7 +123,7 @@ gulp.task('lint', function() {
 
 
 // BrowserSync Task
-gulp.task('serve', ['styles', 'vendorsJs', 'scriptsJs', 'images', 'lint'], function(){
+gulp.task('serve', ['styles', 'vendorsJs', 'scriptsJs', 'images', 'lint'], () => {
 	var files = [
 		'**/*.php',
 		'**/*.{png, jpg, gif}'
