@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.scss","style.css"],"names":[],"mappings":"AAAA,SACC,YAAY,EACZ;;AAED,4BACC,SACC,aAAa,EACb,EAAA;;ACHF,yTAAyT","file":"style.css","sourceRoot":"/source/","sourcesContent":[".hello{\n\tcolor: blue;\n}\n\n@media(max-width:600px){\n\t.hello{\n\t\tcolor: green;\n\t}\n}"]}

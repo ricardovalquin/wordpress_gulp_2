@@ -1,0 +1,7 @@
+.hello { color: blue; }
+
+@media (max-width: 600px) { .hello { color: green; } }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIl0sIm1hcHBpbmdzIjoiQUFBQSxNQUFNLENBQUEsRUFDTCxLQUFLLEVBQUUsSUFBSyxHQUNaOztBQUVELE1BQU0sRUFBTCxTQUFTLEVBQUUsS0FBSyxJQUNoQixNQUFNLENBQUEsRUFDTCxLQUFLLEVBQUUsS0FBTSxHQUNiIiwibmFtZXMiOltdfQ== */
+
+/*# sourceMappingURL=style.css.map */

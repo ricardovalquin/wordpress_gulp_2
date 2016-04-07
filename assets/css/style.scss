@@ -1,0 +1,9 @@
+.hello{
+	color: blue;
+}
+
+@media(max-width:600px){
+	.hello{
+		color: green;
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "name": "wp_gulp_automation_2",
+  "description": "an other boilerplate to create a new theme in wordpress using gulp",
+  "main": "gulpfile.js",
+  "authors": [
+    "ricardovalquin"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ricardovalquin/wordpress_gulp_2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
