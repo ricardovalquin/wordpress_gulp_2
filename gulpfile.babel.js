@@ -31,6 +31,38 @@ let plumberErrorHandler = {errorHandler: notify.onError({
 	})
 };
 
+// boilerplate a new theme
+import json from 'json-file';
+import cpr from 'cpr';
+
+let themeName = json.read('./package.json').get('themeName');
+let themeDir = '../' + themeName;
+
+
+// Init task to create a new theme
+gulp.task('init', () => {
+	cpr('./theme_boilerplate', themeDir, (err, files) => {
+		console.log('theme files and directories structure succefully created');
+	});
+	
+	cpr('./package.json', themeDir, (err, files) => {
+		console.log('package.json file succefully copied');
+	});
+
+	cpr('./gulpfile.babel.js', themeDir, (err, files) => {
+		console.log('gulpfile.js file succefully copied');
+	});
+
+	cpr('./.babelrc', themeDir, (err, files) => {
+		console.log('.babelrc file succefully copied');
+	});
+
+	cpr('./bower.json', themeDir, (err, files) => {
+		console.log('bower.json file succefully copied');
+	});
+
+});
+
 
 // Styles task
 
